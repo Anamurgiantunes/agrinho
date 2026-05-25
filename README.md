@@ -1,4 +1,4 @@
-# Projeto Agrinho 2025 - "Festejando a conexão campo-cidade".
+# Projeto Agrinho 2026 - "Festejando a conexão campo-cidade".
 
 # Sobre: 
 Página da web sobre o tema desenvolvimento sustentável na agricultura.
