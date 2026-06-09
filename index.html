@@ -1,77 +1,638 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Site sobre desenvolvimento sustentável e a conexão entre o campo e a cidade.">
-  <link rel="stylesheet" href="style.css" />
-  <title>Agrinho 2025 | Conexão campo-cidade</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>EcoAgroX | Plantio Direto no Paraná | Agrinho 2026</title>
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* ===============================================
+           EcoAgroX - ESTILO PREMIUM VERDE NATUREZA
+           Tema: Floresta, Sustentabilidade, Moderno Alura/Apple
+           =============================================== */
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Paleta Verde Intensa */
+            --verde-pantanal: #0a3b2a;
+            --verde-jade: #1b6b3c;
+            --verde-esmeralda: #2d8c4a;
+            --verde-limao: #6fbf4c;
+            --verde-pastagem: #4caf50;
+            --verde-musgo: #8bc34a;
+            --verde-agua: #a5d6a7;
+            --ouro-terra: #c9a03d;
+            --terra-argila: #d4a373;
+            --creme-natural: #faf8ed;
+            --cinza-floresta: #2c3e2f;
+            
+            /* Modo Claro */
+            --bg-primary: #eef5e8;
+            --bg-secondary: #ffffff;
+            --bg-card: rgba(255, 255, 255, 0.92);
+            --bg-glass: rgba(255, 255, 255, 0.85);
+            --text-primary: #1a3a2a;
+            --text-secondary: #2b5a3a;
+            --text-muted: #4a6b4a;
+            --border: #c8e0bc;
+            --shadow: 0 20px 35px -12px rgba(0, 30, 0, 0.15);
+            --accent: var(--verde-esmeralda);
+        }
+
+        body.dark {
+            --verde-pantanal: #0a2f20;
+            --bg-primary: #0a1f12;
+            --bg-secondary: #0e2a1a;
+            --bg-card: #1a3a25;
+            --bg-glass: rgba(15, 35, 20, 0.9);
+            --text-primary: #e2f0da;
+            --text-secondary: #c8e6bc;
+            --text-muted: #9bc48a;
+            --border: #2a5535;
+            --shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.5;
+        }
+
+        /* Fundo com textura sutil de folhas */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" opacity="0.03"><path fill="%2333aa55" d="M50,10 Q60,30 50,50 Q40,30 50,10 Z M30,40 Q45,50 30,70 Q15,50 30,40 Z M70,45 Q85,60 70,80 Q55,60 70,45 Z"/></svg>');
+            background-repeat: repeat;
+            background-size: 80px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 28px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Header Glass */
+        .header {
+            background: var(--bg-glass);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--verde-esmeralda);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 16px 0;
+            gap: 20px;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--verde-esmeralda), var(--verde-limao), var(--ouro-terra));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo i {
+            background: none;
+            color: var(--verde-esmeralda);
+            -webkit-background-clip: unset;
+            font-size: 2rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .ctrl-btn {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            padding: 8px 18px;
+            border-radius: 60px;
+            font-weight: 600;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: all 0.25s ease;
+            backdrop-filter: blur(4px);
+            font-size: 0.85rem;
+        }
+
+        .ctrl-btn:hover {
+            background: var(--verde-esmeralda);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 14px rgba(43, 140, 74, 0.3);
+            border-color: var(--verde-esmeralda);
+        }
+
+        /* Cards com Imagens e Bordas Naturais */
+        .card {
+            background: var(--bg-card);
+            backdrop-filter: blur(2px);
+            border-radius: 36px;
+            padding: 32px;
+            margin-bottom: 36px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(109, 179, 82, 0.3);
+            transition: all 0.3s ease;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 40px -20px rgba(0, 60, 0, 0.4);
+            border-color: var(--verde-limao);
+        }
+
+        /* Imagem decorativa nos cards */
+        .card-img-bg {
+            position: absolute;
+            right: -20px;
+            bottom: -20px;
+            width: 140px;
+            height: 140px;
+            opacity: 0.1;
+            pointer-events: none;
+            font-size: 8rem;
+        }
+
+        h2 {
+            font-size: 1.9rem;
+            font-weight: 700;
+            margin-bottom: 1.3rem;
+            color: var(--verde-esmeralda);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-left: 5px solid var(--verde-limao);
+            padding-left: 20px;
+        }
+
+        h2 i {
+            color: var(--ouro-terra);
+            font-size: 1.9rem;
+        }
+
+        .hero-highlight {
+            background: linear-gradient(120deg, var(--verde-esmeralda), var(--verde-pantanal));
+            color: white;
+            border-radius: 32px;
+            padding: 32px;
+            margin-bottom: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-highlight::after {
+            content: "🌿";
+            font-size: 180px;
+            position: absolute;
+            bottom: -40px;
+            right: -20px;
+            opacity: 0.12;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 32px;
+        }
+
+        /* Imagens ilustrativas internas (SVG Emojis grandes) */
+        .img-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+        }
+
+        .simulator-input input, .simulator-input select {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 60px;
+            padding: 14px 20px;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .simulator-input input:focus, .simulator-input select:focus {
+            border-color: var(--verde-esmeralda);
+            box-shadow: 0 0 0 3px rgba(45, 140, 74, 0.2);
+        }
+
+        button {
+            background: linear-gradient(95deg, var(--verde-esmeralda), var(--verde-jade));
+            color: white;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.25s;
+            box-shadow: 0 5px 12px rgba(0,0,0,0.1);
+        }
+
+        button:hover {
+            transform: scale(0.97);
+            background: linear-gradient(95deg, var(--verde-jade), var(--verde-pantanal));
+            box-shadow: 0 8px 20px rgba(27, 107, 60, 0.4);
+        }
+
+        .quiz-option {
+            background: var(--bg-secondary);
+            border: 2px solid var(--border);
+            border-radius: 60px;
+            padding: 14px 22px;
+            margin: 12px 0;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .quiz-option:hover {
+            background: var(--verde-esmeralda);
+            color: white;
+            border-color: var(--verde-esmeralda);
+            transform: translateX(8px);
+        }
+
+        .score {
+            background: linear-gradient(135deg, var(--verde-pastagem), var(--verde-jade));
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 60px;
+            font-weight: bold;
+            color: white;
+        }
+
+        .assistant-bubble {
+            background: var(--verde-pantanal);
+            color: #f0ffe6;
+            padding: 20px 28px;
+            border-radius: 32px;
+            border-top-left-radius: 8px;
+            margin-top: 20px;
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+            font-weight: 450;
+        }
+
+        /* Galeria de Imagens Virtuais (emojis grandes + ilustração) */
+        .image-gallery {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 28px 0;
+        }
+        .img-badge {
+            background: var(--bg-secondary);
+            border-radius: 100px;
+            padding: 16px 24px;
+            text-align: center;
+            font-weight: bold;
+            border: 1px solid var(--border);
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .img-badge i {
+            font-size: 2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 40px 0;
+            border-top: 2px solid var(--verde-esmeralda);
+            background: var(--bg-glass);
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .container { padding: 0 16px; }
+            h2 { font-size: 1.5rem; }
+            .logo { font-size: 1.5rem; }
+            .card { padding: 24px; }
+        }
+
+        .btn-verde {
+            background: var(--verde-limao);
+            color: #1a3a2a;
+        }
+    </style>
 </head>
-
 <body>
-  <header>
-    <h1>🌱 Conexão campo-cidade</h1>
-  </header>
 
-  <main>
-    <section id="introducao">
-      <h2>Desenvolvimento sustentável: equilíbrio entre urbano e rural</h2>
-      <p>
-        O desenvolvimento sustentável busca atender às necessidades atuais sem comprometer as futuras,
-        equilibrando áreas urbanas e rurais. Para isso, é importante integrar infraestrutura e serviços,
-        preservar o meio ambiente, promover desenvolvimento econômico diversificado, planejar de forma
-        integrada, valorizar as comunidades rurais e usar tecnologia e inovação. Esse equilíbrio favorece
-        a qualidade de vida, a conservação ambiental e o crescimento responsável, contribuindo para
-        sociedades mais justas, resilientes e sustentáveis.
-      </p>
-      <figure>
-        <img src="img/karsten-wurth-0w-uTa0Xz7w-unsplash.jpg" class="imagem-introducao" alt="" title="A imagem mostra a produção de energia eólica, com foco na sustentabilidae." loading="lazy" />
-        <figcaption>Fonte: Unsplash, 2025.</figcaption>
-      </figure>
-    </section>
+<header class="header">
+    <div class="container nav">
+        <div class="logo"><i class="fas fa-seedling"></i> EcoAgroX <span style="font-size:0.9rem;">⚡Agrinho 2026</span></div>
+        <div class="controls">
+            <button id="darkModeToggle" class="ctrl-btn"><i class="fas fa-moon"></i> Modo</button>
+            <button id="increaseFont" class="ctrl-btn"><i class="fas fa-text-height"></i> A+</button>
+            <button id="decreaseFont" class="ctrl-btn"><i class="fas fa-text-height"></i> A-</button>
+            <button id="readModeBtn" class="ctrl-btn"><i class="fas fa-volume-up"></i> Ouvir</button>
+        </div>
+    </div>
+</header>
 
-    <section id="desenvolvimento">
-      <h2>Qual a sua importância?</h2>
-      <p>
-        Segundo o AEGRO (2023), a sustentabilidade no agronegócio é crucial para garantir a manutenção dos
-        recursos naturais e a produtividade agrícola a longo prazo, ao mesmo tempo em que reduz os impactos
-        ambientais negativos e favorece a biodiversidade. Além disso, ela agrega valor aos produtos brasileiros
-        no mercado e assegura uma remuneração justa aos moradores rurais. A adoção de práticas sustentáveis
-        também otimiza a produção com o mínimo de insumos químicos.
-      </p>
-      <figure>
-        <img src="img/1-sustentabilidade-no-campo-1024x480.webp" class="grafico" alt="" title="Tripé do desenvolvimento sustentável." loading="lazy" />
-        <figcaption>Fonte: Movimento Nacional ODS, 2025.</figcaption>
-      </figure>
+<main class="container">
+    <!-- Banner hero -->
+    <div class="hero-highlight">
+        <div style="position:relative; z-index:2">
+            <i class="fas fa-tree" style="font-size: 3rem;"></i>
+            <h2 style="color:white; border-left-color: #ffd966; margin-top: 10px;">🌱 Plantio Direto: O Futuro é Verde</h2>
+            <p style="font-size:1.1rem">Paraná líder em agricultura sustentável · Herbert Bartz e Rolândia · Conectados com a natureza</p>
+        </div>
+    </div>
 
-      <h3>Práticas sustentáveis e o papel da tecnologia</h3>
-      <p>Segundo o AEGRO (2023), para alcançar a sustentabilidade no campo, diversas práticas podem ser implementadas:</p>
-      <ul>
-        <li>Rotação e diversificação de culturas: ajuda a manter a saúde do solo e reduzir a incidência de pragas e doenças.</li>
-        <li>Adubação verde: utilização de plantas para melhorar a fertilidade do solo.</li>
-        <li>Agricultura orgânica: cultivo sem o uso de produtos químicos sintéticos.</li>
-        <li>Manejo integrado de pragas: controle eficiente com menor impacto ambiental.</li>
-      </ul>
+    <!-- Cards com Imagens e Cores -->
+    <div class="card">
+        <div class="img-icon">🌾🚜</div>
+        <h2><i class="fas fa-history"></i> História do Plantio Direto no Paraná</h2>
+        <p>Na década de 1970, o Paraná deu um passo revolucionário ao adotar o Plantio Direto, sistema que elimina o revolvimento do solo, mantém a palhada e reduz drasticamente a erosão. Hoje, mais de 85% da área agrícola paranaense utiliza o método, garantindo solo vivo, economia hídrica e altas produtividades. Referência mundial em conservação!</p>
+        <div class="image-gallery">
+            <div class="img-badge"><i class="fas fa-chart-line"></i> +40% Matéria Orgânica</div>
+            <div class="img-badge"><i class="fas fa-tint"></i> Menos erosão hídrica</div>
+        </div>
+    </div>
 
-      <figure>
-        <img src="img/Infografico_cinco_elementos_PORTUGUESE-300x300.png" class="foto" alt="" title="Infográfico sobre sustentabilidade." loading="lazy" />
-        <figcaption>Fonte: AEGRO, 2025.</figcaption>
-      </figure>
-    </section>
+    <div class="card">
+        <div class="img-icon">👨‍🌾⭐</div>
+        <h2><i class="fas fa-star-of-life"></i> Herbert Bartz & Rolândia – Berço do Plantio Direto</h2>
+        <p><strong>Herbert Bartz</strong>, visionário agricultor, iniciou experimentos em Rolândia (PR) nos anos 70, desafiando métodos convencionais. Sua propriedade tornou-se um polo de inovação, provando que é possível produzir sem arar o solo. Hoje, Rolândia é referência mundial e recebe pesquisadores de todo o planeta. "O solo agradece quando não o reviramos", dizia Bartz.</p>
+        <div class="image-gallery">
+            <div class="img-badge"><i class="fas fa-tractor"></i> Pioneiro ABSOLUTO</div>
+            <div class="img-badge"><i class="fas fa-leaf"></i> Legado Vivo</div>
+        </div>
+    </div>
 
-    <section id="referencias">
-      <h3>Referências</h3>
-      <ul>
-        <li><a href="https://www.aegro.com.br" target="_blank" rel="noopener noreferrer">Site AEGRO</a>. Acesso em 26 de maio de 2025.</li>
-        <li>Textos tirados do site AEGRO sobre o tópico "Desenvolvimento sustentável", 26 de maio de 2025.</li>
-      </ul>
-    </section>
-  </main>
+    <div class="card" style="background: linear-gradient(125deg, var(--bg-card), var(--verde-agua));">
+        <h2><i class="fas fa-wifi"></i> Tema Agrinho 2026: "Totalmente Conectado"</h2>
+        <p>O Programa Agrinho 2026 promove a conexão entre tecnologia, sustentabilidade e o campo. EcoAgroX está alinhado com essa visão, oferecendo ferramentas digitais, conhecimento agroecológico e inteligência para o produtor moderno. Estamos conectados com o solo, com os dados e com o futuro da agricultura regenerativa! 🌍📡</p>
+    </div>
 
-  <footer>
-    <p>&copy; 2025 Desenvolvido por Ana Paula Murgi Antunes</p>
-  </footer>
+    <!-- Simulador e Gráfico -->
+    <div class="grid-2">
+        <div class="card">
+            <h2><i class="fas fa-chart-simple"></i> Simulador Avançado</h2>
+            <div class="simulator-input">
+                <div class="input-group"><label>🌾 Área (hectares)</label><input type="number" id="areaHa" value="120"></div>
+                <div class="input-group"><label>📈 Produtividade (sacas/ha)</label><input type="number" id="produtividade" value="72"></div>
+                <div class="input-group"><label>💰 Preço por saca (R$)</label><input type="number" id="precoSaca" value="135"></div>
+                <div class="input-group"><label>🌿 Redução de custo (%)</label><input type="number" id="reducaoCusto" value="28"></div>
+                <button id="calcularSimulacao"><i class="fas fa-calculator"></i> Calcular Benefício Verde</button>
+                <div id="resultadoSimulacao" style="background: var(--bg-primary); border-radius: 28px; padding: 18px; margin-top: 20px; border-left: 6px solid var(--verde-limao);"></div>
+            </div>
+        </div>
+        <div class="card">
+            <h2><i class="fas fa-chart-pie"></i> Impacto Ambiental</h2>
+            <canvas id="meuGrafico" style="max-height: 300px; width:100%"></canvas>
+            <p class="text-muted" style="margin-top: 12px;"><i class="fas fa-cloud-sun"></i> Plantio Direto reduz pegada de carbono e custos.</p>
+        </div>
+    </div>
+
+    <!-- Quiz Gamificado -->
+    <div class="card">
+        <h2><i class="fas fa-gamepad"></i> Quiz Verde | Pontuação Eco</h2>
+        <div id="quizContainer">
+            <div id="perguntaAtual" style="font-weight: bold; font-size: 1.2rem;"></div>
+            <div id="opcoesQuiz" style="margin: 18px 0;"></div>
+            <div class="score" id="quizScore">🏆 Pontuação: 0</div>
+            <button id="nextQuizBtn" style="margin-top: 15px; background: var(--verde-limao); color:#1a3a2a;">Próxima questão 🌱</button>
+        </div>
+    </div>
+
+    <!-- Assistente Agro + Imagem Natureza -->
+    <div class="card">
+        <h2><i class="fas fa-robot"></i> Assistente Agro (IA Sustentável)</h2>
+        <div class="image-gallery"><div class="img-badge"><i class="fas fa-comment-dots"></i> Pergunte sobre Herbert Bartz, Plantio Direto ou Rolândia</div></div>
+        <input type="text" id="perguntaAssistente" placeholder="Ex: Quais benefícios do plantio direto?" style="width: 100%; border-radius: 60px; padding: 14px;">
+        <button id="perguntarAssistente" style="margin-top: 12px;"><i class="fas fa-leaf"></i> Perguntar</button>
+        <div id="respostaAssistente" class="assistant-bubble">
+            🤖 Olá, sou seu assistente verde! Pergunte sobre plantio direto, sustentabilidade ou Herbert Bartz.
+        </div>
+    </div>
+
+    <!-- Imagens adicionais com frases motivacionais -->
+    <div class="card" style="text-align: center;">
+        <i class="fas fa-hand-peace" style="font-size: 4rem; color: var(--verde-esmeralda);"></i>
+        <h2>🌎 Conectado com a Natureza</h2>
+        <p>“O plantio direto é a revolução silenciosa que salva nossos solos e garante alimento para o futuro.” - Herbert Bartz</p>
+        <div class="image-gallery" style="justify-content: center;">
+            <div class="img-badge"><i class="fas fa-recycle"></i> Agricultura Regenerativa</div>
+            <div class="img-badge"><i class="fas fa-hand-holding-heart"></i> Solo Vivo</div>
+        </div>
+    </div>
+</main>
+
+<footer>
+    <p><i class="fas fa-leaf"></i> EcoAgroX · Inspirado no legado de Herbert Bartz · Agrinho 2026 "Totalmente Conectado" 🌱</p>
+    <p>Rolândia/PR · Tecnologia para o campo sustentável</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+    (function(){
+        // TEMA
+        const body = document.body;
+        const darkToggle = document.getElementById('darkModeToggle');
+        if(localStorage.getItem('theme') === 'dark') body.classList.add('dark');
+        darkToggle.addEventListener('click',()=>{
+            body.classList.toggle('dark');
+            localStorage.setItem('theme', body.classList.contains('dark') ? 'dark' : 'light');
+            if(window.grafico) atualizarCoresGrafico();
+        });
+
+        // FONTE
+        let fontSize=100;
+        const incFont=document.getElementById('increaseFont');
+        const decFont=document.getElementById('decreaseFont');
+        function setFont(percent){ document.documentElement.style.fontSize=percent+'%'; fontSize=percent; }
+        incFont.addEventListener('click',()=>{ if(fontSize<130) setFont(fontSize+10); });
+        decFont.addEventListener('click',()=>{ if(fontSize>80) setFont(fontSize-10); });
+
+        // LEITOR
+        const readBtn=document.getElementById('readModeBtn');
+        let speaking=false;
+        function lerTexto(txt){
+            if(speaking) window.speechSynthesis.cancel();
+            let utterance=new SpeechSynthesisUtterance(txt);
+            utterance.lang='pt-BR';
+            utterance.rate=0.9;
+            window.speechSynthesis.speak(utterance);
+            speaking=true;
+            utterance.onend=()=>{ speaking=false; };
+        }
+        readBtn.addEventListener('click',()=>{
+            let textos=[...document.querySelectorAll('.card')].map(c=>c.innerText.slice(0,700)).join('. ');
+            lerTexto("EcoAgroX - "+textos);
+        });
+
+        // GRÁFICO CHART.JS 
+        const ctx=document.getElementById('meuGrafico').getContext('2d');
+        let grafico=new Chart(ctx,{
+            type:'bar',
+            data:{
+                labels:['Custo por ha (R$)', 'Carbono seq. (t/ha)','Economia anual (R$/ha)'],
+                datasets:[{
+                    label:'🌿 Plantio Direto',
+                    data:[1280, 2.9, 520],
+                    backgroundColor:'#2b6e3c',
+                    borderRadius:12,
+                },{
+                    label:'🚜 Convencional',
+                    data:[1920,0.8,0],
+                    backgroundColor:'#c97e2a',
+                    borderRadius:12,
+                }]
+            },
+            options:{ responsive:true, maintainAspectRatio:true, plugins:{ legend:{ position:'top' } } }
+        });
+        function atualizarCoresGrafico(){ if(grafico) grafico.update(); }
+
+        // SIMULADOR AVANÇADO
+        const areaInp=document.getElementById('areaHa');
+        const prodInp=document.getElementById('produtividade');
+        const precoInp=document.getElementById('precoSaca');
+        const reducInp=document.getElementById('reducaoCusto');
+        const btnCalc=document.getElementById('calcularSimulacao');
+        const resDiv=document.getElementById('resultadoSimulacao');
+        function calcularSim(){
+            let area=parseFloat(areaInp.value)||0;
+            let prod=parseFloat(prodInp.value)||0;
+            let preco=parseFloat(precoInp.value)||0;
+            let reduc=parseFloat(reducInp.value)||0;
+            if(area<=0||prod<=0||preco<=0){ resDiv.innerHTML='⚠️ Insira valores válidos'; return; }
+            let producaoTotal=area*prod;
+            let receita=producaoTotal*preco;
+            let custoConvHa=1950;
+            let economiaHa=(custoConvHa*reduc)/100;
+            let economiaTotal=economiaHa*area;
+            let custoPDTotal=(custoConvHa*area)-economiaTotal;
+            let lucro=receita-custoPDTotal;
+            let carbonoSeq=area*2.7;
+            resDiv.innerHTML=`
+                <strong>🌱 RESULTADO ECOAGROX</strong><br>
+                📦 Produção: ${producaoTotal.toFixed(0)} sacas<br>
+                💰 Receita: R$ ${receita.toFixed(2)}<br>
+                💚 Economia direta: R$ ${economiaTotal.toFixed(2)} (${reduc}% menos)<br>
+                🚜 Lucro estimado: R$ ${lucro.toFixed(2)}<br>
+                🌍 Carbono retido: ${carbonoSeq.toFixed(1)} ton CO₂/ano 🌎<br>
+                <small>✅ Solo mais fértil, água preservada, futuro sustentável.</small>
+            `;
+            if(grafico){
+                let novoCustoPD = custoConvHa * (1 - reduc/100);
+                grafico.data.datasets[0].data=[novoCustoPD, 2.9, economiaHa];
+                grafico.data.datasets[1].data=[custoConvHa,0.8,0];
+                grafico.update();
+            }
+        }
+        btnCalc.addEventListener('click',calcularSim);
+        [areaInp,prodInp,precoInp,reducInp].forEach(i=>i.addEventListener('change',calcularSim));
+        calcularSim();
+
+        // QUIZ GAMIFICADO
+        const perguntas=[
+            {pergunta:"🌾 Quem é o 'pai do plantio direto' no Brasil?",opcoes:["Herbert Bartz","Ana Primavesi","Evaristo Miranda","Alysson Paolinelli"],correta:0,exp:"Herbert Bartz revolucionou a agricultura em Rolândia."},
+            {pergunta:"📍 Cidade do Paraná onde Herbert Bartz iniciou os experimentos?",opcoes:["Londrina","Rolândia","Maringá","Cascavel"],correta:1,exp:"Rolândia é o berço do plantio direto brasileiro."},
+            {pergunta:"❌ Qual NÃO é benefício do Plantio Direto?",opcoes:["Redução erosão","Aumento matéria orgânica","Maior necessidade de aração","Sequestro de carbono"],correta:2,exp:"Plantio direto dispensa aração."},
+            {pergunta:"🌐 Tema do Agrinho 2026?",opcoes:["Campo Inteligente","Totalmente Conectado","Agro 5.0","Sustentabilidade Total"],correta:1,exp:"Agrinho 2026: Totalmente Conectado!"},
+            {pergunta:"💚 Qual o principal impacto ambiental positivo do Plantio Direto?",opcoes:["Erosão hídrica","Sequestro de carbono","Compactação","Desmatamento"],correta:1,exp:"Retém carbono e aumenta saúde do solo."}
+        ];
+        let idxAtual=0, pont=0, respondido=false;
+        const perguntaDiv=document.getElementById('perguntaAtual');
+        const opcoesDiv=document.getElementById('opcoesQuiz');
+        const scoreSpan=document.getElementById('quizScore');
+        const nextBtn=document.getElementById('nextQuizBtn');
+        function carregarQuiz(){
+            let q=perguntas[idxAtual];
+            perguntaDiv.innerHTML=`<i class="fas fa-question-circle"></i> ${q.pergunta}`;
+            opcoesDiv.innerHTML='';
+            q.opcoes.forEach((opt,i)=>{
+                let optDiv=document.createElement('div');
+                optDiv.className='quiz-option';
+                optDiv.innerHTML=`<i class="far fa-circle"></i> ${opt}`;
+                optDiv.onclick=()=>{
+                    if(respondido) return;
+                    if(i===q.correta){ pont+=10; optDiv.style.background='#2b6e3c'; optDiv.style.color='white'; mostrarFeedback(`✅ Correto! ${q.exp}`,false);}
+                    else{ optDiv.style.background='#b91c1c'; optDiv.style.color='white'; mostrarFeedback(`❌ Errado! ${q.opcoes[q.correta]}. ${q.exp}`,true);}
+                    respondido=true;
+                    scoreSpan.innerHTML=`🏆 Pontuação: ${pont}`;
+                    desabilitarOpcoesQuiz();
+                };
+                opcoesDiv.appendChild(optDiv);
+            });
+            respondido=false;
+        }
+        function desabilitarOpcoesQuiz(){ document.querySelectorAll('.quiz-option').forEach(o=>o.style.pointerEvents='none');}
+        function habilitarOpcoesQuiz(){ document.querySelectorAll('.quiz-option').forEach(o=>{o.style.pointerEvents='auto'; o.style.background=''; o.style.color='';});}
+        function mostrarFeedback(msg, isErr){
+            let fb=document.createElement('div'); fb.className='quiz-feedback'; fb.style.marginTop='12px'; fb.style.padding='10px'; fb.style.borderRadius='20px'; fb.style.background=isErr?'rgba(185,28,28,0.2)':'rgba(43,110,60,0.2)'; fb.innerHTML=msg;
+            let old=document.querySelector('.quiz-feedback'); if(old) old.remove();
+            document.getElementById('quizContainer').appendChild(fb);
+            setTimeout(()=>fb.remove(),3500);
+        }
+        nextBtn.addEventListener('click',()=>{
+            if(!respondido && idxAtual<perguntas.length){ mostrarFeedback("Responda antes de continuar!",true); return;}
+            if(idxAtual+1 < perguntas.length){ idxAtual++; carregarQuiz(); habilitarOpcoesQuiz();}
+            else{ alert(`🏁 Fim do quiz! Pontuação final: ${pont}/${perguntas.length*10} 🌟 Parabéns!`); idxAtual=0; pont=0; scoreSpan.innerHTML=`🏆 Pontuação: 0`; carregarQuiz(); habilitarOpcoesQuiz();}
+        });
+        carregarQuiz();
+
+        // ASSISTENTE AGRO melhorado
+        const assistInput=document.getElementById('perguntaAssistente');
+        const assistBtn=document.getElementById('perguntarAssistente');
+        const respAssist=document.getElementById('respostaAssistente');
+        function respostaIA(p){
+            let q=p.toLowerCase();
+            if(q.includes('herbert')||q.includes('bartz')) return "🌿 Herbert Bartz é o precursor do plantio direto no Brasil. Ele iniciou em Rolândia (PR) na década de 70 e transformou a agricultura!";
+            if(q.includes('rolandia')) return "📍 Rolândia, norte do Paraná, é considerada a capital nacional do plantio direto, berço da técnica conservacionista.";
+            if(q.includes('erosão')) return "♻️ Para evitar erosão: cobertura permanente do solo, rotação de culturas e plantio direto são as melhores práticas.";
+            if(q.includes('carbono')) return "🌍 O plantio direto sequestra de 2 a 3 toneladas de CO₂ por hectare ao ano, combatendo mudanças climáticas.";
+            if(q.includes('benefício')||q.includes('vantagem')) return "✅ Economia de combustível, aumento de matéria orgânica, menor erosão, mais água no solo e lucratividade sustentável.";
+            return "💚 Dica EcoAgroX: O plantio direto melhora o solo e reduz custos. Use nosso simulador para ver ganhos reais! Pergunte sobre Herbert Bartz, Rolândia ou sustentabilidade.";
+        }
+        assistBtn.addEventListener('click',()=>{
+            let per=assistInput.value.trim();
+            if(!per){ respAssist.innerHTML="🤔 Escreva sua pergunta sobre agro sustentável!"; return;}
+            let resp=respostaIA(per);
+            respAssist.innerHTML=`🌱 ${resp}`;
+            lerTexto(resp);
+            assistInput.value='';
+        });
+    })();
+</script>
 </body>
-
 </html>
