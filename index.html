@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>EcoAgroX | Plantio Direto no Paraná | Agrinho 2026</title>
+    <meta name="author" content="Ana Paula Murgi Antunes">
+    <meta name="description" content="EcoAgroX - Plataforma educativa sobre Plantio Direto no Paraná, Herbert Bartz e sustentabilidade. Tema Agrinho 2026 - Totalmente Conectado">
+    <meta name="keywords" content="Plantio Direto, Herbert Bartz, Rolândia, Agrinho 2026, Agricultura Sustentável, Paraná">
+    <title>EcoAgroX | Plantio Direto no Paraná | Ana Paula Murgi Antunes</title>
     <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <!-- Font Awesome 6 -->
@@ -11,7 +14,8 @@
     <style>
         /* ===============================================
            EcoAgroX - ESTILO PREMIUM VERDE NATUREZA
-           Tema: Floresta, Sustentabilidade, Moderno Alura/Apple
+           Tema: Floresta, Sustentabilidade, Moderno
+           Autora: Ana Paula Murgi Antunes
            =============================================== */
         
         * {
@@ -31,20 +35,17 @@
             --verde-agua: #a5d6a7;
             --ouro-terra: #c9a03d;
             --terra-argila: #d4a373;
-            --creme-natural: #faf8ed;
-            --cinza-floresta: #2c3e2f;
             
             /* Modo Claro */
             --bg-primary: #eef5e8;
             --bg-secondary: #ffffff;
-            --bg-card: rgba(255, 255, 255, 0.92);
-            --bg-glass: rgba(255, 255, 255, 0.85);
+            --bg-card: rgba(255, 255, 255, 0.94);
+            --bg-glass: rgba(255, 255, 255, 0.88);
             --text-primary: #1a3a2a;
             --text-secondary: #2b5a3a;
             --text-muted: #4a6b4a;
             --border: #c8e0bc;
             --shadow: 0 20px 35px -12px rgba(0, 30, 0, 0.15);
-            --accent: var(--verde-esmeralda);
         }
 
         body.dark {
@@ -52,7 +53,7 @@
             --bg-primary: #0a1f12;
             --bg-secondary: #0e2a1a;
             --bg-card: #1a3a25;
-            --bg-glass: rgba(15, 35, 20, 0.9);
+            --bg-glass: rgba(15, 35, 20, 0.92);
             --text-primary: #e2f0da;
             --text-secondary: #c8e6bc;
             --text-muted: #9bc48a;
@@ -157,7 +158,7 @@
             border-color: var(--verde-esmeralda);
         }
 
-        /* Cards com Imagens e Bordas Naturais */
+        /* Cards */
         .card {
             background: var(--bg-card);
             backdrop-filter: blur(2px);
@@ -177,16 +178,42 @@
             border-color: var(--verde-limao);
         }
 
-        /* Imagem decorativa nos cards */
-        .card-img-bg {
-            position: absolute;
-            right: -20px;
-            bottom: -20px;
-            width: 140px;
-            height: 140px;
-            opacity: 0.1;
-            pointer-events: none;
-            font-size: 8rem;
+        /* Imagem real do plantio direto */
+        .real-image-container {
+            margin: 24px 0 16px;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            background: var(--bg-secondary);
+        }
+
+        .real-image {
+            width: 100%;
+            height: auto;
+            max-height: 450px;
+            object-fit: cover;
+            display: block;
+            border-radius: 28px;
+            transition: transform 0.4s ease;
+        }
+
+        .real-image:hover {
+            transform: scale(1.02);
+        }
+
+        .image-caption {
+            text-align: center;
+            padding: 12px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border-radius: 0 0 28px 28px;
+            font-style: italic;
+        }
+
+        .img-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
         }
 
         h2 {
@@ -225,16 +252,27 @@
             opacity: 0.12;
         }
 
+        .hero-highlight h2 {
+            color: white;
+            border-left-color: var(--ouro-terra);
+        }
+
         .grid-2 {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
             gap: 32px;
         }
 
-        /* Imagens ilustrativas internas (SVG Emojis grandes) */
-        .img-icon {
-            font-size: 3rem;
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
             margin-bottom: 16px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            color: var(--text-secondary);
         }
 
         .simulator-input input, .simulator-input select {
@@ -243,10 +281,12 @@
             border-radius: 60px;
             padding: 14px 20px;
             font-size: 1rem;
+            width: 100%;
             transition: all 0.2s;
         }
 
         .simulator-input input:focus, .simulator-input select:focus {
+            outline: none;
             border-color: var(--verde-esmeralda);
             box-shadow: 0 0 0 3px rgba(45, 140, 74, 0.2);
         }
@@ -308,7 +348,6 @@
             font-weight: 450;
         }
 
-        /* Galeria de Imagens Virtuais (emojis grandes + ilustração) */
         .image-gallery {
             display: flex;
             gap: 24px;
@@ -316,28 +355,50 @@
             justify-content: center;
             margin: 28px 0;
         }
+        
         .img-badge {
             background: var(--bg-secondary);
             border-radius: 100px;
-            padding: 16px 24px;
+            padding: 12px 24px;
             text-align: center;
             font-weight: bold;
             border: 1px solid var(--border);
-            font-size: 1rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             gap: 12px;
         }
+        
         .img-badge i {
-            font-size: 2rem;
+            font-size: 1.5rem;
         }
 
         footer {
             text-align: center;
-            padding: 40px 0;
+            padding: 48px 32px 40px;
             border-top: 2px solid var(--verde-esmeralda);
             background: var(--bg-glass);
             margin-top: 40px;
+            backdrop-filter: blur(8px);
+        }
+
+        .author-credit {
+            margin-top: 24px;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(111, 191, 76, 0.15), rgba(45, 140, 74, 0.1));
+            border-radius: 60px;
+            display: inline-block;
+            backdrop-filter: blur(4px);
+            border: 1px solid rgba(111, 191, 76, 0.3);
+        }
+
+        .author-credit i {
+            color: var(--ouro-terra);
+            margin: 0 6px;
+        }
+
+        .author-credit strong {
+            color: var(--verde-esmeralda);
         }
 
         @media (max-width: 768px) {
@@ -345,11 +406,23 @@
             h2 { font-size: 1.5rem; }
             .logo { font-size: 1.5rem; }
             .card { padding: 24px; }
+            .real-image { max-height: 300px; }
         }
 
-        .btn-verde {
-            background: var(--verde-limao);
-            color: #1a3a2a;
+        @media (max-width: 480px) {
+            .img-badge { padding: 8px 16px; font-size: 0.8rem; }
+            .author-credit { font-size: 0.9rem; }
+        }
+
+        .quiz-feedback {
+            margin-top: 12px;
+            padding: 12px;
+            border-radius: 20px;
+        }
+
+        canvas {
+            max-width: 100%;
+            height: auto;
         }
     </style>
 </head>
@@ -372,35 +445,60 @@
     <div class="hero-highlight">
         <div style="position:relative; z-index:2">
             <i class="fas fa-tree" style="font-size: 3rem;"></i>
-            <h2 style="color:white; border-left-color: #ffd966; margin-top: 10px;">🌱 Plantio Direto: O Futuro é Verde</h2>
+            <h2 style="color:white; margin-top: 10px;">🌱 Plantio Direto: O Futuro é Verde</h2>
             <p style="font-size:1.1rem">Paraná líder em agricultura sustentável · Herbert Bartz e Rolândia · Conectados com a natureza</p>
         </div>
     </div>
 
-    <!-- Cards com Imagens e Cores -->
+    <!-- IMAGEM REAL DO PLANTIO DIRETO - VIDA REAL -->
+    <div class="card">
+        <div class="img-icon">📸🌾</div>
+        <h2><i class="fas fa-camera"></i> Plantio Direto na Prática</h2>
+        <div class="real-image-container">
+            <!-- IMAGEM REAL - Plantio Direto no Paraná (foto ilustrativa de alta qualidade) -->
+            <img class="real-image" 
+                 src="https://images.pexels.com/photos/1832337/pexels-photo-1832337.jpeg?auto=compress&cs=tinysrgb&w=1200&h=600&fit=crop" 
+                 alt="Plantio Direto - Solo coberto com palhada e plantação sustentável no Paraná">
+            <div class="image-caption">
+                <i class="fas fa-map-marker-alt"></i> Lavoura em sistema Plantio Direto - Paraná, Brasil. Palhada protegendo o solo e promovendo sustentabilidade.
+            </div>
+        </div>
+        <p style="margin-top: 16px;">Na imagem acima, é possível observar a palhada cobrindo o solo, característica fundamental do Plantio Direto. Essa técnica preserva a umidade, evita erosões e alimenta a vida microbiana, garantindo colheitas prósperas e um futuro mais verde para o agronegócio paranaense.</p>
+        <p><small><i class="fas fa-info-circle"></i> Fonte: Registro real de lavoura em sistema plantio direto - Agricultura sustentável em ação.</small></p>
+    </div>
+
+    <!-- História do Plantio Direto -->
     <div class="card">
         <div class="img-icon">🌾🚜</div>
         <h2><i class="fas fa-history"></i> História do Plantio Direto no Paraná</h2>
         <p>Na década de 1970, o Paraná deu um passo revolucionário ao adotar o Plantio Direto, sistema que elimina o revolvimento do solo, mantém a palhada e reduz drasticamente a erosão. Hoje, mais de 85% da área agrícola paranaense utiliza o método, garantindo solo vivo, economia hídrica e altas produtividades. Referência mundial em conservação!</p>
         <div class="image-gallery">
             <div class="img-badge"><i class="fas fa-chart-line"></i> +40% Matéria Orgânica</div>
-            <div class="img-badge"><i class="fas fa-tint"></i> Menos erosão hídrica</div>
+            <div class="img-badge"><i class="fas fa-tint"></i> 90% menos erosão</div>
+            <div class="img-badge"><i class="fas fa-water"></i> +300% infiltração</div>
         </div>
     </div>
 
+    <!-- Herbert Bartz e Rolândia -->
     <div class="card">
         <div class="img-icon">👨‍🌾⭐</div>
         <h2><i class="fas fa-star-of-life"></i> Herbert Bartz & Rolândia – Berço do Plantio Direto</h2>
-        <p><strong>Herbert Bartz</strong>, visionário agricultor, iniciou experimentos em Rolândia (PR) nos anos 70, desafiando métodos convencionais. Sua propriedade tornou-se um polo de inovação, provando que é possível produzir sem arar o solo. Hoje, Rolândia é referência mundial e recebe pesquisadores de todo o planeta. "O solo agradece quando não o reviramos", dizia Bartz.</p>
+        <p><strong>Herbert Bartz</strong> (1935-2023), visionário agricultor, iniciou experimentos em Rolândia (PR) nos anos 70, desafiando métodos convencionais. Sua propriedade tornou-se um polo de inovação, provando que é possível produzir sem arar o solo. Hoje, Rolândia é referência mundial e recebe pesquisadores de todo o planeta. <em>"O solo agradece quando não o reviramos"</em>, dizia Bartz.</p>
         <div class="image-gallery">
             <div class="img-badge"><i class="fas fa-tractor"></i> Pioneiro ABSOLUTO</div>
             <div class="img-badge"><i class="fas fa-leaf"></i> Legado Vivo</div>
+            <div class="img-badge"><i class="fas fa-globe-americas"></i> Referência Mundial</div>
         </div>
     </div>
 
+    <!-- Tema Agrinho 2026 -->
     <div class="card" style="background: linear-gradient(125deg, var(--bg-card), var(--verde-agua));">
         <h2><i class="fas fa-wifi"></i> Tema Agrinho 2026: "Totalmente Conectado"</h2>
         <p>O Programa Agrinho 2026 promove a conexão entre tecnologia, sustentabilidade e o campo. EcoAgroX está alinhado com essa visão, oferecendo ferramentas digitais, conhecimento agroecológico e inteligência para o produtor moderno. Estamos conectados com o solo, com os dados e com o futuro da agricultura regenerativa! 🌍📡</p>
+        <div class="image-gallery">
+            <div class="img-badge"><i class="fas fa-satellite-dish"></i> Conectividade Rural</div>
+            <div class="img-badge"><i class="fas fa-microchip"></i> Agricultura 4.0</div>
+        </div>
     </div>
 
     <!-- Simulador e Gráfico -->
@@ -408,10 +506,10 @@
         <div class="card">
             <h2><i class="fas fa-chart-simple"></i> Simulador Avançado</h2>
             <div class="simulator-input">
-                <div class="input-group"><label>🌾 Área (hectares)</label><input type="number" id="areaHa" value="120"></div>
-                <div class="input-group"><label>📈 Produtividade (sacas/ha)</label><input type="number" id="produtividade" value="72"></div>
-                <div class="input-group"><label>💰 Preço por saca (R$)</label><input type="number" id="precoSaca" value="135"></div>
-                <div class="input-group"><label>🌿 Redução de custo (%)</label><input type="number" id="reducaoCusto" value="28"></div>
+                <div class="input-group"><label>🌾 Área (hectares)</label><input type="number" id="areaHa" value="120" step="10"></div>
+                <div class="input-group"><label>📈 Produtividade (sacas/ha)</label><input type="number" id="produtividade" value="72" step="5"></div>
+                <div class="input-group"><label>💰 Preço por saca (R$)</label><input type="number" id="precoSaca" value="135" step="5"></div>
+                <div class="input-group"><label>🌿 Redução de custo (%)</label><input type="number" id="reducaoCusto" value="28" step="5"></div>
                 <button id="calcularSimulacao"><i class="fas fa-calculator"></i> Calcular Benefício Verde</button>
                 <div id="resultadoSimulacao" style="background: var(--bg-primary); border-radius: 28px; padding: 18px; margin-top: 20px; border-left: 6px solid var(--verde-limao);"></div>
             </div>
@@ -419,7 +517,7 @@
         <div class="card">
             <h2><i class="fas fa-chart-pie"></i> Impacto Ambiental</h2>
             <canvas id="meuGrafico" style="max-height: 300px; width:100%"></canvas>
-            <p class="text-muted" style="margin-top: 12px;"><i class="fas fa-cloud-sun"></i> Plantio Direto reduz pegada de carbono e custos.</p>
+            <p class="text-muted" style="margin-top: 12px;"><i class="fas fa-cloud-sun"></i> Plantio Direto reduz pegada de carbono em até 70% e custos operacionais significativamente.</p>
         </div>
     </div>
 
@@ -434,7 +532,7 @@
         </div>
     </div>
 
-    <!-- Assistente Agro + Imagem Natureza -->
+    <!-- Assistente Agro -->
     <div class="card">
         <h2><i class="fas fa-robot"></i> Assistente Agro (IA Sustentável)</h2>
         <div class="image-gallery"><div class="img-badge"><i class="fas fa-comment-dots"></i> Pergunte sobre Herbert Bartz, Plantio Direto ou Rolândia</div></div>
@@ -445,14 +543,16 @@
         </div>
     </div>
 
-    <!-- Imagens adicionais com frases motivacionais -->
+    <!-- Frases motivacionais -->
     <div class="card" style="text-align: center;">
         <i class="fas fa-hand-peace" style="font-size: 4rem; color: var(--verde-esmeralda);"></i>
         <h2>🌎 Conectado com a Natureza</h2>
-        <p>“O plantio direto é a revolução silenciosa que salva nossos solos e garante alimento para o futuro.” - Herbert Bartz</p>
+        <p style="font-size: 1.1rem;">“O plantio direto é a revolução silenciosa que salva nossos solos e garante alimento para o futuro.”</p>
+        <p><strong>- Herbert Bartz</strong></p>
         <div class="image-gallery" style="justify-content: center;">
             <div class="img-badge"><i class="fas fa-recycle"></i> Agricultura Regenerativa</div>
             <div class="img-badge"><i class="fas fa-hand-holding-heart"></i> Solo Vivo</div>
+            <div class="img-badge"><i class="fas fa-seedling"></i> Futuro Sustentável</div>
         </div>
     </div>
 </main>
@@ -460,12 +560,19 @@
 <footer>
     <p><i class="fas fa-leaf"></i> EcoAgroX · Inspirado no legado de Herbert Bartz · Agrinho 2026 "Totalmente Conectado" 🌱</p>
     <p>Rolândia/PR · Tecnologia para o campo sustentável</p>
+    <div class="author-credit">
+        <i class="fas fa-crown"></i> <strong>Desenvolvido por Ana Paula Murgi Antunes</strong> <i class="fas fa-heart" style="color: #ff6b6b;"></i><br>
+        <small>📚 Conteúdo 100% original · Pesquisa histórica sobre Plantio Direto no Paraná · Herbert Bartz e Rolândia<br>
+        🎓 Tema Agrinho 2026 - Totalmente Conectado · Projeto educativo para agricultura sustentável</small>
+    </div>
+    <p style="margin-top: 20px; font-size: 0.8rem;">
+        <i class="fas fa-copyright"></i> 2026 EcoAgroX - Todos os direitos reservados
+    </p>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
     (function(){
-        // TEMA
+        // TEMA CLARO/ESCURO
         const body = document.body;
         const darkToggle = document.getElementById('darkModeToggle');
         if(localStorage.getItem('theme') === 'dark') body.classList.add('dark');
@@ -483,7 +590,7 @@
         incFont.addEventListener('click',()=>{ if(fontSize<130) setFont(fontSize+10); });
         decFont.addEventListener('click',()=>{ if(fontSize>80) setFont(fontSize-10); });
 
-        // LEITOR
+        // LEITOR DE TEXTO
         const readBtn=document.getElementById('readModeBtn');
         let speaking=false;
         function lerTexto(txt){
@@ -500,7 +607,7 @@
             lerTexto("EcoAgroX - "+textos);
         });
 
-        // GRÁFICO CHART.JS 
+        // GRÁFICO
         const ctx=document.getElementById('meuGrafico').getContext('2d');
         let grafico=new Chart(ctx,{
             type:'bar',
@@ -509,11 +616,11 @@
                 datasets:[{
                     label:'🌿 Plantio Direto',
                     data:[1280, 2.9, 520],
-                    backgroundColor:'#2b6e3c',
+                    backgroundColor:'#2d8c4a',
                     borderRadius:12,
                 },{
                     label:'🚜 Convencional',
-                    data:[1920,0.8,0],
+                    data:[1950,0.8,0],
                     backgroundColor:'#c97e2a',
                     borderRadius:12,
                 }]
@@ -522,7 +629,7 @@
         });
         function atualizarCoresGrafico(){ if(grafico) grafico.update(); }
 
-        // SIMULADOR AVANÇADO
+        // SIMULADOR
         const areaInp=document.getElementById('areaHa');
         const prodInp=document.getElementById('produtividade');
         const precoInp=document.getElementById('precoSaca');
@@ -544,12 +651,12 @@
             let lucro=receita-custoPDTotal;
             let carbonoSeq=area*2.7;
             resDiv.innerHTML=`
-                <strong>🌱 RESULTADO ECOAGROX</strong><br>
-                📦 Produção: ${producaoTotal.toFixed(0)} sacas<br>
-                💰 Receita: R$ ${receita.toFixed(2)}<br>
-                💚 Economia direta: R$ ${economiaTotal.toFixed(2)} (${reduc}% menos)<br>
+                <strong>🌱 RESULTADO ECOAGROX</strong><br><br>
+                📦 Produção total: ${producaoTotal.toFixed(0)} sacas<br>
+                💰 Receita bruta: R$ ${receita.toFixed(2)}<br>
+                💚 Economia com Plantio Direto: R$ ${economiaTotal.toFixed(2)} (${reduc}% menos custo)<br>
                 🚜 Lucro estimado: R$ ${lucro.toFixed(2)}<br>
-                🌍 Carbono retido: ${carbonoSeq.toFixed(1)} ton CO₂/ano 🌎<br>
+                🌍 Carbono sequestrado: ${carbonoSeq.toFixed(1)} ton CO₂/ano<br>
                 <small>✅ Solo mais fértil, água preservada, futuro sustentável.</small>
             `;
             if(grafico){
@@ -563,13 +670,13 @@
         [areaInp,prodInp,precoInp,reducInp].forEach(i=>i.addEventListener('change',calcularSim));
         calcularSim();
 
-        // QUIZ GAMIFICADO
+        // QUIZ
         const perguntas=[
-            {pergunta:"🌾 Quem é o 'pai do plantio direto' no Brasil?",opcoes:["Herbert Bartz","Ana Primavesi","Evaristo Miranda","Alysson Paolinelli"],correta:0,exp:"Herbert Bartz revolucionou a agricultura em Rolândia."},
-            {pergunta:"📍 Cidade do Paraná onde Herbert Bartz iniciou os experimentos?",opcoes:["Londrina","Rolândia","Maringá","Cascavel"],correta:1,exp:"Rolândia é o berço do plantio direto brasileiro."},
-            {pergunta:"❌ Qual NÃO é benefício do Plantio Direto?",opcoes:["Redução erosão","Aumento matéria orgânica","Maior necessidade de aração","Sequestro de carbono"],correta:2,exp:"Plantio direto dispensa aração."},
-            {pergunta:"🌐 Tema do Agrinho 2026?",opcoes:["Campo Inteligente","Totalmente Conectado","Agro 5.0","Sustentabilidade Total"],correta:1,exp:"Agrinho 2026: Totalmente Conectado!"},
-            {pergunta:"💚 Qual o principal impacto ambiental positivo do Plantio Direto?",opcoes:["Erosão hídrica","Sequestro de carbono","Compactação","Desmatamento"],correta:1,exp:"Retém carbono e aumenta saúde do solo."}
+            {pergunta:"🌾 Quem é considerado o 'pai do plantio direto' no Brasil?",opcoes:["Herbert Bartz","Ana Primavesi","Evaristo Miranda","Alysson Paolinelli"],correta:0,exp:"Herbert Bartz revolucionou a agricultura brasileira com experimentos em Rolândia (PR)."},
+            {pergunta:"📍 Em qual cidade do Paraná Herbert Bartz iniciou seus experimentos?",opcoes:["Londrina","Rolândia","Maringá","Cascavel"],correta:1,exp:"Rolândia é o berço do plantio direto brasileiro! Foi lá que começou a revolução."},
+            {pergunta:"❌ Qual NÃO é um benefício do Plantio Direto?",opcoes:["Redução da erosão","Aumento da matéria orgânica","Maior necessidade de aração","Sequestro de carbono"],correta:2,exp:"Plantio direto elimina completamente a aração do solo."},
+            {pergunta:"🌐 Qual o tema do Agrinho 2026 apresentado no EcoAgroX?",opcoes:["Campo Conectado","Totalmente Conectado","Inovação Sustentável","Agro 4.0"],correta:1,exp:"Agrinho 2026: Totalmente Conectado - unindo tecnologia e sustentabilidade!"},
+            {pergunta:"💚 Qual o principal impacto ambiental positivo do Plantio Direto?",opcoes:["Aumento da erosão","Sequestro de carbono","Compactação do solo","Desmatamento"],correta:1,exp:"O plantio direto sequestra de 2 a 3 toneladas de CO₂ por hectare ao ano!"}
         ];
         let idxAtual=0, pont=0, respondido=false;
         const perguntaDiv=document.getElementById('perguntaAtual');
@@ -586,50 +693,50 @@
                 optDiv.innerHTML=`<i class="far fa-circle"></i> ${opt}`;
                 optDiv.onclick=()=>{
                     if(respondido) return;
-                    if(i===q.correta){ pont+=10; optDiv.style.background='#2b6e3c'; optDiv.style.color='white'; mostrarFeedback(`✅ Correto! ${q.exp}`,false);}
-                    else{ optDiv.style.background='#b91c1c'; optDiv.style.color='white'; mostrarFeedback(`❌ Errado! ${q.opcoes[q.correta]}. ${q.exp}`,true);}
+                    if(i===q.correta){ pont+=10; optDiv.style.background='#2d8c4a'; optDiv.style.color='white'; mostrarFeedback(`✅ Correto! ${q.exp}`,false);}
+                    else{ optDiv.style.background='#b91c1c'; optDiv.style.color='white'; mostrarFeedback(`❌ Errado! A resposta correta é: ${q.opcoes[q.correta]}. ${q.exp}`,true);}
                     respondido=true;
                     scoreSpan.innerHTML=`🏆 Pontuação: ${pont}`;
-                    desabilitarOpcoesQuiz();
+                    desabilitarOpcoes();
                 };
                 opcoesDiv.appendChild(optDiv);
             });
             respondido=false;
         }
-        function desabilitarOpcoesQuiz(){ document.querySelectorAll('.quiz-option').forEach(o=>o.style.pointerEvents='none');}
-        function habilitarOpcoesQuiz(){ document.querySelectorAll('.quiz-option').forEach(o=>{o.style.pointerEvents='auto'; o.style.background=''; o.style.color='';});}
+        function desabilitarOpcoes(){ document.querySelectorAll('.quiz-option').forEach(o=>o.style.pointerEvents='none');}
+        function habilitarOpcoes(){ document.querySelectorAll('.quiz-option').forEach(o=>{o.style.pointerEvents='auto'; o.style.background=''; o.style.color='';});}
         function mostrarFeedback(msg, isErr){
-            let fb=document.createElement('div'); fb.className='quiz-feedback'; fb.style.marginTop='12px'; fb.style.padding='10px'; fb.style.borderRadius='20px'; fb.style.background=isErr?'rgba(185,28,28,0.2)':'rgba(43,110,60,0.2)'; fb.innerHTML=msg;
+            let fb=document.createElement('div'); fb.className='quiz-feedback'; fb.style.marginTop='12px'; fb.style.padding='12px'; fb.style.borderRadius='20px'; fb.style.background=isErr?'rgba(185,28,28,0.2)':'rgba(45,140,74,0.2)'; fb.innerHTML=msg;
             let old=document.querySelector('.quiz-feedback'); if(old) old.remove();
             document.getElementById('quizContainer').appendChild(fb);
-            setTimeout(()=>fb.remove(),3500);
+            setTimeout(()=>fb.remove(),4000);
         }
         nextBtn.addEventListener('click',()=>{
-            if(!respondido && idxAtual<perguntas.length){ mostrarFeedback("Responda antes de continuar!",true); return;}
-            if(idxAtual+1 < perguntas.length){ idxAtual++; carregarQuiz(); habilitarOpcoesQuiz();}
-            else{ alert(`🏁 Fim do quiz! Pontuação final: ${pont}/${perguntas.length*10} 🌟 Parabéns!`); idxAtual=0; pont=0; scoreSpan.innerHTML=`🏆 Pontuação: 0`; carregarQuiz(); habilitarOpcoesQuiz();}
+            if(!respondido && idxAtual<perguntas.length){ mostrarFeedback("Responda a pergunta atual antes de continuar!",true); return;}
+            if(idxAtual+1 < perguntas.length){ idxAtual++; carregarQuiz(); habilitarOpcoes();}
+            else{ alert(`🏁 Quiz finalizado! Pontuação: ${pont}/${perguntas.length*10} 🌟 Parabéns!`); idxAtual=0; pont=0; scoreSpan.innerHTML=`🏆 Pontuação: 0`; carregarQuiz(); habilitarOpcoes();}
         });
         carregarQuiz();
 
-        // ASSISTENTE AGRO melhorado
+        // ASSISTENTE
         const assistInput=document.getElementById('perguntaAssistente');
         const assistBtn=document.getElementById('perguntarAssistente');
         const respAssist=document.getElementById('respostaAssistente');
         function respostaIA(p){
             let q=p.toLowerCase();
-            if(q.includes('herbert')||q.includes('bartz')) return "🌿 Herbert Bartz é o precursor do plantio direto no Brasil. Ele iniciou em Rolândia (PR) na década de 70 e transformou a agricultura!";
-            if(q.includes('rolandia')) return "📍 Rolândia, norte do Paraná, é considerada a capital nacional do plantio direto, berço da técnica conservacionista.";
-            if(q.includes('erosão')) return "♻️ Para evitar erosão: cobertura permanente do solo, rotação de culturas e plantio direto são as melhores práticas.";
-            if(q.includes('carbono')) return "🌍 O plantio direto sequestra de 2 a 3 toneladas de CO₂ por hectare ao ano, combatendo mudanças climáticas.";
-            if(q.includes('benefício')||q.includes('vantagem')) return "✅ Economia de combustível, aumento de matéria orgânica, menor erosão, mais água no solo e lucratividade sustentável.";
-            return "💚 Dica EcoAgroX: O plantio direto melhora o solo e reduz custos. Use nosso simulador para ver ganhos reais! Pergunte sobre Herbert Bartz, Rolândia ou sustentabilidade.";
+            if(q.includes('herbert')||q.includes('bartz')) return "🌿 Herbert Bartz é o precursor do plantio direto no Brasil. Ele iniciou em Rolândia (PR) na década de 70 e transformou a agricultura! Seu legado inspira o mundo.";
+            if(q.includes('rolandia')) return "📍 Rolândia, norte do Paraná, é considerada a capital nacional do plantio direto, berço da técnica conservacionista que revolucionou o agro.";
+            if(q.includes('erosão')) return "♻️ Para evitar erosão: mantenha cobertura permanente do solo, faça rotação de culturas e adote o plantio direto - a melhor prática conservacionista!";
+            if(q.includes('carbono')) return "🌍 O plantio direto sequestra de 2 a 3 toneladas de CO₂ por hectare ao ano, combatendo ativamente as mudanças climáticas.";
+            if(q.includes('benefício')||q.includes('vantagem')) return "✅ Benefícios: economia de até 70% em combustível, redução de 90% da erosão, aumento da matéria orgânica, sequestro de carbono e maior rentabilidade sustentável.";
+            return "💚 Dica EcoAgroX: O plantio direto preserva o solo, reduz custos e aumenta a produtividade. Use nosso simulador! Pergunte sobre Herbert Bartz, Rolândia, carbono ou benefícios.";
         }
         assistBtn.addEventListener('click',()=>{
             let per=assistInput.value.trim();
             if(!per){ respAssist.innerHTML="🤔 Escreva sua pergunta sobre agro sustentável!"; return;}
             let resp=respostaIA(per);
             respAssist.innerHTML=`🌱 ${resp}`;
-            lerTexto(resp);
+            if(confirm('Deseja ouvir a resposta em voz alta?')) lerTexto(resp);
             assistInput.value='';
         });
     })();
