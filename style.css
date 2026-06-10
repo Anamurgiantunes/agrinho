@@ -37,7 +37,7 @@ body {
     --ouro-terra: #d4a373;
     --creme-natural: #faf8ed;
     --areia: #f5f0e1;
-    
+
     --bg-primary: #eef5e8;
     --bg-secondary: #ffffff;
     --bg-card: rgba(255, 255, 255, 0.96);
@@ -150,7 +150,7 @@ body::before {
 .logo i {
     background: none;
     color: var(--verde-esmeralda);
-    -webkit-background-clip: unset;
+
     font-size: 2rem;
 }
 
@@ -225,7 +225,7 @@ body::before {
 .img-icon {
     font-size: 3.5rem;
     margin-bottom: 20px;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1));
 }
 
 /* ---------- HERO DESTAQUE ---------- */
@@ -284,6 +284,7 @@ h2 i {
         font-size: 1.5rem;
         padding-left: 16px;
     }
+
     h2 i {
         font-size: 1.4rem;
     }
@@ -316,7 +317,8 @@ h2 i {
     letter-spacing: -0.2px;
 }
 
-input, select {
+input,
+select {
     padding: 14px 22px;
     border-radius: 60px;
     border: 2px solid var(--border);
@@ -327,7 +329,8 @@ input, select {
     transition: all 0.25s;
 }
 
-input:focus, select:focus {
+input:focus,
+select:focus {
     outline: none;
     border-color: var(--verde-esmeralda);
     box-shadow: 0 0 0 4px rgba(45, 140, 74, 0.15);
@@ -462,6 +465,7 @@ button:active {
         opacity: 0;
         transform: translateY(-10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
@@ -545,33 +549,33 @@ footer i {
         padding: 24px;
         border-radius: 28px;
     }
-    
+
     .hero-highlight {
         padding: 32px 24px;
     }
-    
+
     .hero-highlight::after {
         font-size: 100px;
     }
-    
+
     .img-badge {
         padding: 8px 18px;
         font-size: 0.8rem;
     }
-    
+
     .controls {
         justify-content: center;
     }
-    
+
     .logo {
         font-size: 1.5rem;
     }
-    
+
     button {
         padding: 10px 24px;
         font-size: 0.9rem;
     }
-    
+
     .quiz-option {
         padding: 10px 18px;
         font-size: 0.9rem;
@@ -582,15 +586,15 @@ footer i {
     .container {
         padding: 0 14px;
     }
-    
+
     h2 {
         font-size: 1.3rem;
     }
-    
+
     .img-icon {
         font-size: 2.5rem;
     }
-    
+
     .assistant-bubble {
         padding: 16px 20px;
         font-size: 0.9rem;
@@ -599,9 +603,12 @@ footer i {
 
 /* ---------- ANIMAÇÕES SUTIS ---------- */
 @keyframes floatLeaf {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translateY(0px);
     }
+
     50% {
         transform: translateY(-8px);
     }
